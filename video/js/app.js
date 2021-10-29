@@ -4,7 +4,7 @@ var store = (function() {
 		localStorage = window.localStorage;
 	} catch (e) {}
 	return {
-		get: function(name, jsonParse) {
+		get: function(name) {
 			return localStorage.getItem(name);
 		},
 		set: function(name, value) {
@@ -15,17 +15,17 @@ var store = (function() {
 
 $(function() {
 	var PORT = store.get('port') || 3003,
-		START = store.get('start') || 101,
-		END = store.get('end') || 167;
+		current;
 
 	function next() {
-		var current = store.get('current');
+		var START = store.get('start') || 101,
+			END = store.get('end') || 167;
+		current = store.get('current');
 		if (current > END || current < START) {
 			current = START;
 		}
 		var url = 'http://localhost:' + PORT + '/' + current;
 		current++;
-		console.log('=====>>> current ', current);
 		store.set('current', current);
 		return url;
 	}
@@ -67,5 +67,6 @@ $(function() {
 		console.log('====>>> ', url);
 		$(src).attr('src', url);
 		$(video).load();
+		$(this).html(current);
 	});
 });

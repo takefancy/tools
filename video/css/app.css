@@ -3,7 +3,8 @@ body{background-color:#000;margin:0;padding:0;overflow:hidden;}
 .video-js{width:100%!important;}
 video{object-fit:cover;}
 .col-6{margin:0!important;padding:0!important;}
-
-.video-item{margin: 0;padding: 0;}
-.switch{width: 50px;height: 50px;background-color: transparent;position: absolute;top: 0;right: 0;cursor: pointer;z-index: 9;}
-.switch:hover{background-color: red;}
+.video-item{margin:0;padding:0;}
+.switch{width:50
+	px;height:50
+px;background-color:transparent;position:absolute;top:0;right:0;cursor:pointer;z-index:9;display:flex;align-items:center;justify-content:center;color:#fff;}
+.switch:hover{background-color:red;}

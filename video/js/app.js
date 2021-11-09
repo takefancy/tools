@@ -19,7 +19,7 @@ $(function() {
 
 	function next() {
 		var START = store.get('start') || 101,
-			END = store.get('end') || 167;
+			END = store.get('end') || 208;
 		current = store.get('current');
 		if (current > END || current < START) {
 			current = START;
@@ -46,14 +46,21 @@ $(function() {
 	//videos
 	for (var i = 0; i < 9; i++) {
 		var url = next();
-		console.log('=====>>> url ', url);
 		var html = `<div class="col-4 col-md-4 video-item">
-			<div class="switch"></div>
-            <video class="video-js vjs-default-skin" controls>
+			<div class="switch">${current}</div>
+            <video id="player-${i}" class="video-js vjs-default-skin" controls autoplay>
                 <source src="${url}" type='video/mp4' />
             </video>
         </div>`;
 		$('#container').append(html);
+		document.getElementById('player-' + i).addEventListener('ended', (event) => {
+			var video = $(event.target);
+			var src = $(video).find('source')[0];
+			var url = next();
+			$(src).attr('src', url);
+			$(video).load();
+			$(this).html(current);
+		});
 	}
 
 	var height = window.screen.height; // * window.devicePixelRatio;
@@ -64,7 +71,6 @@ $(function() {
 		var video = $(this).next('video');
 		var src = $(video).find('source')[0];
 		var url = next();
-		console.log('====>>> ', url);
 		$(src).attr('src', url);
 		$(video).load();
 		$(this).html(current);
